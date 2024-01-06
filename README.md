@@ -1,0 +1,2 @@
+# todays_news_notifier_with_gpt
+毎日のニュースを要約して通知してSlackに通知
