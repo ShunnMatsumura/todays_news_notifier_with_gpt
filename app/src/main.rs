@@ -5,6 +5,7 @@ use std::env;
 use rss::Channel;
 use std::error::Error;
 use std::fmt;
+use warp::Filter;
 
 const OPENAI_URL: &str = "https://api.openai.com/v1/chat/completions";
 
@@ -86,18 +87,26 @@ struct Message {
 }
 
 #[tokio::main]
-async fn main() -> Result<(), NewsError> {
+async fn main() {
     dotenv().ok();
     let api_key = env::var("OPENAI_API_KEY").expect("OPENAI_API_KEY not found in .env file");
 
-    let summaries = get_latest_news_summaries(&api_key).await?;
+    // summariesを取得するエンドポイント
+    let summaries = warp::path("summaries")
+    .and(warp::get())
+    .and_then(move || get_summaries(api_key.clone()));
 
-    println!("Summaries: {:?}", summaries);
-    // for summary in summaries {
-    //     println!("Summary: {}", summary);
-    // }
+    // warpサーバーを起動
+    warp::serve(summaries)
+    .run(([127, 0, 0, 1], 3030))
+    .await;
+}
 
-    Ok(())
+async fn get_summaries(api_key: String) -> Result<impl warp::Reply, warp::Rejection> {
+    match get_latest_news_summaries(&api_key).await {
+        Ok(summaries) => Ok(warp::reply::json(&summaries)),
+        Err(_) => Err(warp::reject::not_found()),
+    }
 }
 
 async fn get_latest_news_summaries(api_key: &str) -> Result<Vec<String>, NewsError> {
