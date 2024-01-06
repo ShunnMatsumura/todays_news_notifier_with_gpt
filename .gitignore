@@ -1,0 +1,5 @@
+# env file
+.env
+
+# Compiled files
+app/target/
