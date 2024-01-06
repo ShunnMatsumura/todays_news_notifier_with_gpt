@@ -93,13 +93,24 @@ async fn main() {
 
     // summariesを取得するエンドポイント
     let summaries = warp::path("summaries")
-    .and(warp::get())
-    .and_then(move || get_summaries(api_key.clone()));
+        .and(warp::get())
+        .and_then(move || get_summaries(api_key.clone()));
 
-    // warpサーバーを起動
-    warp::serve(summaries)
-    .run(([127, 0, 0, 1], 3030))
-    .await;
+    // 環境変数からポートを取得、デフォルトは3030
+    let port: u16 = env::var("PORT")
+        .unwrap_or_else(|_| "3030".to_string())
+        .parse()
+        .expect("PORT must be a number");
+
+    // health check用のエンドポイント
+    let health = warp::path("health")
+        .and(warp::get())
+        .map(|| "ok");
+
+    // warpでサーバーを起動
+    warp::serve(summaries.or(health))
+        .run(([0, 0, 0, 0], port))
+        .await;
 }
 
 async fn get_summaries(api_key: String) -> Result<impl warp::Reply, warp::Rejection> {
