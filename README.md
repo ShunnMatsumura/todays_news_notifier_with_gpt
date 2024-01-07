@@ -1,27 +1,36 @@
 # todays_news_notifier_with_gpt
-毎日のニュースを要約して通知してSlackに通知
-# 設計
+Translate and summarize daily news with ChatGPT.
+
+# Architecture
 ```mermaid
 graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+    A[Periodic job in GAS] -->|Request| B[Render.com];
+    B -->|Fetch latest news from specified RSS| C[Translate & Summarize with GPT];
+    C -->|Response| D[Receive response in GAS];
+    D -->|Slack notification| E[Slack];
 ```
 
-# 取得対象
-| サイト名 | RSSフィードのURL |
+# Targeted Sources
+| SiteName | RSS feed URL |
 |----------|-----------------|
 | Search Engine Journal | https://www.searchenginejournal.com/feed/ |
 | Moz Blog | https://moz.com/blog/feed |
 | CSS-Tricks | https://css-tricks.com/feed/ |
 | Frontend Focus | https://frontendfoc.us/rss |
 | The New Stack | https://thenewstack.io/feed/ |
-| DZone Web Dev | https://dzone.com/web-development-programming-tutorials-tools-news/rss |
-| GitHub Blog | https://github.blog/all.atom |
+| DZone Deployment | https://feeds.dzone.com/deployment |
+| DZone Databases | https://feeds.dzone.com/databases |
+| GitHub Blog | https://github.blog/feed/ |
 | DevOps.com | https://devops.com/feed/ |
 | The Cloudflare Blog | https://blog.cloudflare.com/rss/ |
 | Engineering Management Institute | https://engineeringmanagementinstitute.org/feed/ |
-| LeadDev | https://leaddev.com/rss.xml |
+| LeadDev | https://leaddev.com/content-piece-and-series/rss.xml |
 | The Hacker News | https://feeds.feedburner.com/TheHackersNews |
 | Krebs on Security | https://krebsonsecurity.com/feed/ |
+| TechCrunch | https://techcrunch.com/feed/ |
+
+# How To Use
+1. fork or clone this repository
+2. execute `cargo build`
+3. execute `cargo run`
+4. execute `curl http://localhost/3030/health` or `curl http://localhost/3030/summaries`
