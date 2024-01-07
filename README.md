@@ -31,6 +31,8 @@ graph TD;
 
 # How To Use
 1. fork or clone this repository
-2. execute `cargo build`
-3. execute `cargo run`
-4. execute `curl http://localhost/3030/health` or `curl http://localhost/3030/summaries`
+2. `cd app`
+3. `cp .env.example .env` and set your open ai api key
+4. `cargo build`
+5. `cargo run`
+6. `curl http://localhost/3030/health` or `curl http://localhost/3030/summaries`
