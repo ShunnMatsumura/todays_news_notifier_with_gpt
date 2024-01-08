@@ -35,4 +35,4 @@ graph TD;
 3. `cp .env.example .env` and set your open ai api key
 4. `cargo build`
 5. `cargo run`
-6. `curl http://localhost/3030/health` or `curl http://localhost/3030/summaries`
+6. `curl http://localhost:3030/health` or `curl http://localhost:3030/summaries`
