@@ -27,6 +27,7 @@ const RSS_FEEDS: [&str; 15] = [
     "https://techcrunch.com/feed/"
 ];
 
+
 #[derive(Debug)]
 enum NewsError {
     Reqwest(reqwest::Error),
