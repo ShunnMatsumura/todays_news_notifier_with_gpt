@@ -24,9 +24,9 @@ const RSS_FEEDS: [&str; 15] = [
     "https://leaddev.com/content-piece-and-series/rss.xml",
     "https://feeds.feedburner.com/TheHackersNews",
     "https://krebsonsecurity.com/feed/",
-    "https://techcrunch.com/feed/"
+    "https://techcrunch.com/feed/",
+    "https://engineering.mercari.com/blog/feed.xml"
 ];
-
 
 #[derive(Debug)]
 enum NewsError {
