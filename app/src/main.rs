@@ -9,8 +9,7 @@ use warp::Filter;
 
 const OPENAI_URL: &str = "https://api.openai.com/v1/chat/completions";
 
-const RSS_FEEDS: [&str; 15] = [
-    "https://www.searchenginejournal.com/feed/",
+const RSS_FEEDS: [&str; 14] = [
     "https://moz.com/blog/feed",
     "https://css-tricks.com/feed/",
     "https://frontendfoc.us/rss",
@@ -21,12 +20,10 @@ const RSS_FEEDS: [&str; 15] = [
     "https://devops.com/feed/",
     "https://blog.cloudflare.com/rss/",
     "https://engineeringmanagementinstitute.org/feed/",
-    // "https://leaddev.com/content-piece-and-series/rss.xml",
     "https://feeds.feedburner.com/TheHackersNews",
     "https://krebsonsecurity.com/feed/",
     "https://techcrunch.com/feed/",
     "https://zenn.dev/topics/botter/feed"
-    // "https://engineering.mercari.com/blog/feed.xml"
 ];
 
 #[derive(Debug)]
